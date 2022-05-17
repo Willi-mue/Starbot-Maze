@@ -1,1 +1,3 @@
-# My Pacman-game 1.0 for only 1920x1080
+# My Pacman-game 1.0
+
+ (in progress) need fix vor Resolution
