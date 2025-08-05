@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-import pygame
+# import pygame
 import ctypes
 
 from io import open
@@ -295,7 +295,7 @@ class pacman(QWidget):
     def __init__(self, hoehe, breite, map_read, directory_score):
         super().__init__()
 
-        self.setWindowIcon(QIcon("logic/bilder/icon.png"))
+        self.setWindowIcon(QIcon("logic/images/icon.png"))
         # Setzen des Icons
         my_app_id = 'by_Müller_Willi.MyPacman.1.0'
         ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(my_app_id)
@@ -313,14 +313,10 @@ class pacman(QWidget):
         self.resize(self.breite, self.hoehe)
         self.setMinimumSize(self.breite, self.hoehe)
 
-        pygame.mixer.init()
-        pygame.mixer.music.load("logic/musik/Pac_man_theme_remix_By_Arsenic1987.mp3")
-        # links:
-        # https://www.youtube.com/watch?v=qtZ0hl-unM4
-        # https://open.spotify.com/track/5Jt6qtZfj0YSHfFBJUyviK?si=MLYHvd74QM-Tp8Bz4UukUQ&nd
-
-        pygame.mixer.music.play(-1)
-        pygame.mixer.music.set_volume(0.02)
+        # pygame.mixer.init()
+        # pygame.mixer.music.load("logic/music/")
+        # pygame.mixer.music.play(-1)
+        # pygame.mixer.music.set_volume(0.02)
 
         self.lvl = 1
 
@@ -345,32 +341,32 @@ class pacman(QWidget):
         self.lvl_complete = False
         self.hit_switch = False
 
-        self.links_oben = QImage("logic/bilder/links_oben.png")
-        self.rechts_oben = QImage("logic/bilder/rechts_oben.png")
-        self.links_unten = QImage("logic/bilder/links_unten.png")
-        self.rechts_unten = QImage("logic/bilder/rechts_unten.png")
-        self.horizontal = QImage("logic/bilder/horizontal.png")
-        self.vertikal = QImage("logic/bilder/vertikal.png")
-        self.point = QImage("logic/bilder/point.png")
-        self.power_up = QImage("logic/bilder/power_up.png")
-        self.arcade = QImage("logic/bilder/arcade.png")
-        self.herz = QImage("logic/bilder/herz.png")
+        self.links_oben = QImage("logic/images/links_oben.png")
+        self.rechts_oben = QImage("logic/images/rechts_oben.png")
+        self.links_unten = QImage("logic/images/links_unten.png")
+        self.rechts_unten = QImage("logic/images/rechts_unten.png")
+        self.horizontal = QImage("logic/images/horizontal.png")
+        self.vertikal = QImage("logic/images/vertikal.png")
+        self.point = QImage("logic/images/point.png")
+        self.power_up = QImage("logic/images/power_up.png")
+        self.arcade = QImage("logic/images/arcade.png")
+        self.herz = QImage("logic/images/herz.png")
 
-        self.spieler_img = [QImage("logic/bilder/player_idle.png"), QImage("logic/bilder/player_left.png"),
-                            QImage("logic/bilder/player_right.png"), QImage("logic/bilder/player_up.png"),
-                            QImage("logic/bilder/player_down.png"),
-                            QImage("logic/bilder/player_idle_hit.png"),
-                            QImage("logic/bilder/player_left_hit.png"), QImage("logic/bilder/player_right_hit.png"),
-                            QImage("logic/bilder/player_up_hit.png"), QImage("logic/bilder/player_down_hit.png"),
-                            QImage("logic/bilder/player_idle_hit2.png"),
-                            QImage("logic/bilder/player_left_hit2.png"), QImage("logic/bilder/player_right_hit2.png"),
-                            QImage("logic/bilder/player_up_hit2.png"), QImage("logic/bilder/player_down_hit2.png")
+        self.spieler_img = [QImage("logic/images/player_idle.png"), QImage("logic/images/player_left.png"),
+                            QImage("logic/images/player_right.png"), QImage("logic/images/player_up.png"),
+                            QImage("logic/images/player_down.png"),
+                            QImage("logic/images/player_idle_hit.png"),
+                            QImage("logic/images/player_left_hit.png"), QImage("logic/images/player_right_hit.png"),
+                            QImage("logic/images/player_up_hit.png"), QImage("logic/images/player_down_hit.png"),
+                            QImage("logic/images/player_idle_hit2.png"),
+                            QImage("logic/images/player_left_hit2.png"), QImage("logic/images/player_right_hit2.png"),
+                            QImage("logic/images/player_up_hit2.png"), QImage("logic/images/player_down_hit2.png")
                             ]
 
-        self.blue_ghost_img = ["logic/bilder/geist_blau.png"]
-        self.orange_ghost_img = ["logic/bilder/geist_orange.png"]
-        self.red_ghost_img = ["logic/bilder/geist_rot.png"]
-        self.purple_ghost_img = ["logic/bilder/geist_lila.png"]
+        self.blue_ghost_img = ["logic/images/geist_blau.png"]
+        self.orange_ghost_img = ["logic/images/geist_orange.png"]
+        self.red_ghost_img = ["logic/images/geist_rot.png"]
+        self.purple_ghost_img = ["logic/images/geist_lila.png"]
 
         # geister
         self.geister = ghost()
@@ -548,7 +544,6 @@ class pacman(QWidget):
         painter.setFont(QFont("times", 10))
 
         painter.drawText(int(self.hoehe * (5 / 54)), int(self.hoehe * (103 / 108)), "Game made by Willi Müller")
-        painter.drawText(int(self.hoehe * (5 / 54)), int(self.hoehe * (209 / 216)), "Musik by Arsenic1987")
 
         painter.setFont(QFont("times", 29))
 
@@ -560,7 +555,7 @@ class pacman(QWidget):
         painter.drawText(int(self.breite * (71 / 96)), int(self.hoehe * (53 / 108)), "Highscore")
 
         painter.setFont(QFont("times", 24))
-        for i in range(10):
+        for i in range(min(10, len(self.score.text))):
             # Highscore malen lassen
             painter.drawText(int(self.breite * (7 / 12)),
                              int(self.hoehe * (29 / 54)) + (int(self.hoehe * (5 / 108)) * i),
@@ -625,12 +620,12 @@ class pacman(QWidget):
             if self.spieler.power_mode and self.geister.ghost_imun[k]:
                 painter.drawImage(QRect((self.geister.ghosts[k][1] * self.tile_size) + self.verschiebung_x,
                                         (self.geister.ghosts[k][0] * self.tile_size) + self.verschiebung_y,
-                                        self.tile_size, self.tile_size), QImage("bilder/geist_imun"))
+                                        self.tile_size, self.tile_size), QImage("logic/images/geist_imun"))
 
             elif self.spieler.power_mode:
                 painter.drawImage(QRect((self.geister.ghosts[k][1] * self.tile_size) + self.verschiebung_x,
                                         (self.geister.ghosts[k][0] * self.tile_size) + self.verschiebung_y,
-                                        self.tile_size, self.tile_size), QImage("bilder/geist_power"))
+                                        self.tile_size, self.tile_size), QImage("logic/images/geist_power"))
 
             else:
                 painter.drawImage(QRect((self.geister.ghosts[k][1] * self.tile_size) + self.verschiebung_x,

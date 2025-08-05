@@ -1,6 +1,5 @@
 from logic.logic import *
 
-
 class menu(QWidget):
     def __init__(self):
         super().__init__()
@@ -13,7 +12,7 @@ class menu(QWidget):
 
         self.game = pacman(self.game_hoehe, self.game_breite, "game/map.txt", "logic/highscore.txt")
 
-        self.setWindowIcon(QIcon("bilder/icon.png"))
+        self.setWindowIcon(QIcon("images/icon.png"))
 
         self.tabWidget = QTabWidget(self)
 
@@ -64,3 +63,14 @@ class menu(QWidget):
 
     def load_button(self):
         pass
+
+
+    
+if __name__ == "__main__":
+    my_app_id = 'by_Müller_Willi.MyPacman.1.0'
+    ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(my_app_id)
+
+    app = QApplication(sys.argv)
+    application = menu()
+    application.show()
+    sys.exit(app.exec_())
